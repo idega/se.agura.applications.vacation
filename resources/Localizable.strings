@@ -58,6 +58,7 @@ vacation.time.week=Week
 vacation.to_date_back_in_time=To date can not be back in time.
 vacation.to_date_not_empty=Feltet m\u00E5 inte v\u00E4re tomt
 vacation.type=Type
+vacation_type.leave_of_absence=Leave of absence
 vacation.type_text=Comment
 vacation.user_name=Name
 vacation.user_personal_id=PersonalID
