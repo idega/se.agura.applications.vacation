@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>se.agura.applications.vacation.bundle</name>
-	<comment></comment>
+	<name>se.agura.applications.vacation</name>
+	<comment>
+  </comment>
 	<projects>
 	</projects>
 	<buildSpec>
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+			<name>com.ibm.sse.model.structuredbuilder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
