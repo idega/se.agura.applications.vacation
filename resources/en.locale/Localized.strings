@@ -1,0 +1,15 @@
+vacation_type.compensation=Kompensationsledighet
+vacation_type.flextime=Flexledighet
+vacation_type.general=Semester
+vacation_type.official_assignment=Offentligt uppdrag
+vacation_type.other=Annan orsak
+vacation_type.parental_leave=F\u00F6r\u00E4ldraledighet
+vacation_type.preacher_leave=Prostledighet
+vacation_type.private_matter=Enskild angel\u00E4genhet
+vacation_type.study_break=Studieledighet
+vacation_type.union_assignment=Fackligt uppdrag
+vacation_type_metadata.child_personal_id=Barnets personnummer
+vacation_type_metadata.parental_leave_type=Typ av f\u00F6r\u00E4ldraledighet
+vacation_type_metadata_boolean.fathers_days=Pappadagar (max 10 dagar)
+vacation_type_metadata_boolean.lowest_level=L\u00E4gstaniv\u00E5
+vacation_type_metadata_boolean.over_lowest_level=\u00D6ver l\u00E4gstaniv\u00E5
