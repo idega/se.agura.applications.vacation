@@ -83,8 +83,8 @@ public abstract class VacationBlock extends Block {
 	protected String iWidth = Table.HUNDRED_PERCENT;
 
 	public void main(IWContext iwc) throws Exception {
-		iwb = getBundle(iwc);
-		iwrb = getResourceBundle(iwc);
+		this.iwb = getBundle(iwc);
+		this.iwrb = getResourceBundle(iwc);
 		present(iwc);
 	}
 
@@ -103,8 +103,8 @@ public abstract class VacationBlock extends Block {
 		Table personInfo = new Table(2, 3);
 		personInfo.setBorder(0);
 		personInfo.setCellspacing(0);
-		personInfo.setCellpadding(iCellpadding);
-		personInfo.setWidth(1, iHeaderColumnWidth);
+		personInfo.setCellpadding(this.iCellpadding);
+		personInfo.setWidth(1, this.iHeaderColumnWidth);
 		personInfo.setCellpaddingLeft(1, 1, 0);
 		personInfo.setCellpaddingLeft(1, 2, 0);
 		personInfo.setCellpaddingLeft(1, 3, 0);
@@ -136,7 +136,7 @@ public abstract class VacationBlock extends Block {
 	protected Table showVacationRequest(IWContext iwc, VacationRequest vacation) {
 		Table table = new Table();
 		//table.setWidth(iWidth);
-		table.setCellpadding(iCellpadding);
+		table.setCellpadding(this.iCellpadding);
 		table.setCellspacing(0);
 		table.setColumns(9);
 		int row = 1;
@@ -269,7 +269,7 @@ public abstract class VacationBlock extends Block {
 		table.add(getText(date.getLocaleDate(iwc.getCurrentLocale())), 2, row++);
 		table.setHeight(row++, 12);
 
-		table.setWidth(1, iHeaderColumnWidth);
+		table.setWidth(1, this.iHeaderColumnWidth);
 		table.setCellpaddingLeft(1, 0);
 
 		return table;
@@ -279,7 +279,7 @@ public abstract class VacationBlock extends Block {
 		Collection logs = getBusiness(iwc).getLogs(vacation);
 		if (logs != null) {
 			Table table = new Table();
-			table.setWidth(iWidth);
+			table.setWidth(this.iWidth);
 			table.setCellpadding(0);
 			table.setCellspacing(0);
 			int row = 1;
@@ -293,12 +293,12 @@ public abstract class VacationBlock extends Block {
 				String status = log.getCaseStatusAfter().getStatus();
 				
 				Table logTable = new Table(3, 3);
-				logTable.setCellpadding(iCellpadding);
+				logTable.setCellpadding(this.iCellpadding);
 				logTable.setCellspacing(0);
 				logTable.mergeCells(1, 1, 1, 3);
-				logTable.setColor(1, 1, iLogColor);
-				logTable.setWidth(2, iHeaderColumnWidth);
-				logTable.setWidth(1, iLogColorColumnWidth);
+				logTable.setColor(1, 1, this.iLogColor);
+				logTable.setWidth(2, this.iHeaderColumnWidth);
+				logTable.setWidth(1, this.iLogColorColumnWidth);
 				
 				String action = "";
 				if (status.equals(getBusiness(iwc).getCaseStatusDenied().getStatus())) {
@@ -360,57 +360,57 @@ public abstract class VacationBlock extends Block {
 	 * @return Returns the iwb.
 	 */
 	protected IWBundle getBundle() {
-		return iwb;
+		return this.iwb;
 	}
 
 	/**
 	 * @return Returns the iwrb.
 	 */
 	protected IWResourceBundle getResourceBundle() {
-		return iwrb;
+		return this.iwrb;
 	}
 	
 	protected Text getText(String string) {
 		Text text = new Text(string);
-		if (iTextStyleClass != null) {
-			text.setStyleClass(iTextStyleClass);
+		if (this.iTextStyleClass != null) {
+			text.setStyleClass(this.iTextStyleClass);
 		}
 		return text;
 	}
 	
 	protected Text getHeader(String string) {
 		Text text = new Text(string);
-		if (iHeaderStyleClass != null) {
-			text.setStyleClass(iHeaderStyleClass);
+		if (this.iHeaderStyleClass != null) {
+			text.setStyleClass(this.iHeaderStyleClass);
 		}
 		return text;
 	}
 	
 	protected Link getLink(String string) {
 		Link link = new Link(string);
-		if (iLinkStyleClass != null) {
-			link.setStyleClass(iLinkStyleClass);
+		if (this.iLinkStyleClass != null) {
+			link.setStyleClass(this.iLinkStyleClass);
 		}
 		return link;
 	}
 	
 	protected InterfaceObject getInput(InterfaceObject input) {
-		if (iInputStyleClass != null) {
-			input.setStyleClass(iInputStyleClass);
+		if (this.iInputStyleClass != null) {
+			input.setStyleClass(this.iInputStyleClass);
 		}
 		return input;
 	}
 	
 	protected InterfaceObject getRadioButton(InterfaceObject radioButton) {
-		if (iRadioStyleClass != null) {
-			radioButton.setStyleClass(iRadioStyleClass);
+		if (this.iRadioStyleClass != null) {
+			radioButton.setStyleClass(this.iRadioStyleClass);
 		}
 		return radioButton;
 	}
 	
 	protected GenericButton getButton(GenericButton button) {
-		if (iButtonStyleClass != null) {
-			button.setStyleClass(iButtonStyleClass);
+		if (this.iButtonStyleClass != null) {
+			button.setStyleClass(this.iButtonStyleClass);
 		}
 		return button;
 	}
@@ -436,43 +436,43 @@ public abstract class VacationBlock extends Block {
 	 * @param buttonStyleClass The buttonStyleClass to set.
 	 */
 	public void setButtonStyleClass(String buttonStyleClass) {
-		iButtonStyleClass = buttonStyleClass;
+		this.iButtonStyleClass = buttonStyleClass;
 	}
 	/**
 	 * @param headerStyleClass The headerStyleClass to set.
 	 */
 	public void setHeaderStyleClass(String headerStyleClass) {
-		iHeaderStyleClass = headerStyleClass;
+		this.iHeaderStyleClass = headerStyleClass;
 	}
 	/**
 	 * @param inputStyleClass The inputStyleClass to set.
 	 */
 	public void setInputStyleClass(String inputStyleClass) {
-		iInputStyleClass = inputStyleClass;
+		this.iInputStyleClass = inputStyleClass;
 	}
 	/**
 	 * @param linkStyleClass The linkStyleClass to set.
 	 */
 	public void setLinkStyleClass(String linkStyleClass) {
-		iLinkStyleClass = linkStyleClass;
+		this.iLinkStyleClass = linkStyleClass;
 	}
 	/**
 	 * @param radioStyleClass The radioStyleClass to set.
 	 */
 	public void setRadioStyleClass(String radioStyleClass) {
-		iRadioStyleClass = radioStyleClass;
+		this.iRadioStyleClass = radioStyleClass;
 	}
 	/**
 	 * @param textStyleClass The textStyleClass to set.
 	 */
 	public void setTextStyleClass(String textStyleClass) {
-		iTextStyleClass = textStyleClass;
+		this.iTextStyleClass = textStyleClass;
 	}
 	/**
 	 * @return Returns the iPage.
 	 */
 	protected ICPage getPage() {
-		return iPage;
+		return this.iPage;
 	}
 	/**
 	 * 
@@ -480,34 +480,34 @@ public abstract class VacationBlock extends Block {
 	 *          The page to set.
 	 */
 	public void setPage(ICPage page) {
-		iPage = page;
+		this.iPage = page;
 	}
 	
 	/**
 	 * @param cellpadding The cellpadding to set.
 	 */
 	public void setCellpadding(int cellpadding) {
-		iCellpadding = cellpadding;
+		this.iCellpadding = cellpadding;
 	}
 	
 	/**
 	 * @param headerColumnWidth The headerColumnWidth to set.
 	 */
 	public void setHeaderColumnWidth(int headerColumnWidth) {
-		iHeaderColumnWidth = headerColumnWidth;
+		this.iHeaderColumnWidth = headerColumnWidth;
 	}
 	
 	/**
 	 * @param logColor The logColor to set.
 	 */
 	public void setLogColor(String logColor) {
-		iLogColor = logColor;
+		this.iLogColor = logColor;
 	}
 	
 	/**
 	 * @param logColorColumnWidth The logColorColumnWidth to set.
 	 */
 	public void setLogColorColumnWidth(int logColorColumnWidth) {
-		iLogColorColumnWidth = logColorColumnWidth;
+		this.iLogColorColumnWidth = logColorColumnWidth;
 	}
 }

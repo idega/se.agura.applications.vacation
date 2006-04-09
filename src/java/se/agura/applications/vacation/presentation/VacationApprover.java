@@ -1,5 +1,5 @@
 /*
- * $Id: VacationApprover.java,v 1.14 2005/06/23 06:02:17 anna Exp $ Created on
+ * $Id: VacationApprover.java,v 1.15 2006/04/09 12:00:49 laddi Exp $ Created on
  * 18.11.2004
  * 
  * Copyright (C) 2004 Idega Software hf. All Rights Reserved.
@@ -34,7 +34,7 @@ import com.idega.user.data.User;
  * Last modified: 18.11.2004 10:21:40 by: anna
  * 
  * @author <a href="mailto:anna@idega.com">anna </a>
- * @version $Revision: 1.14 $
+ * @version $Revision: 1.15 $
  */
 public class VacationApprover extends VacationBlock {
 
@@ -63,27 +63,27 @@ public class VacationApprover extends VacationBlock {
 		try {
 			parse(iwc);
 
-			if (action.equals(ACTION_FORWARD_VIEW)) {
+			if (this.action.equals(ACTION_FORWARD_VIEW)) {
 				add(getSendToHandleForm(iwc));
 			}
-			else if (action.equals(ACTION_FORWARD)) {
+			else if (this.action.equals(ACTION_FORWARD)) {
 				forward(iwc);
 				showMessage(getResourceBundle().getLocalizedString("meeting_approver.application_forwarded", "Application forwarded."));
 			}
-			else if (action.equals(ACTION_DENIED)) {
+			else if (this.action.equals(ACTION_DENIED)) {
 				reject(iwc);
 				showMessage(getResourceBundle().getLocalizedString("meeting_approver.application_rejected", "Application denied."));
 			}
-			else if (action.equals(ACTION_APPROVED)) {
+			else if (this.action.equals(ACTION_APPROVED)) {
 				approve(iwc);
 				showMessage(getResourceBundle().getLocalizedString("meeting_approver.application_approved", "Application approved."));
 			}
-			else if (action.equals(ACTION_CLOSED)) {
+			else if (this.action.equals(ACTION_CLOSED)) {
 				close(iwc);
 				showMessage(getResourceBundle().getLocalizedString("meeting_approver.application_closed", "Application closed."));
 			}
 			else {
-				User owner = vacation.getOwner();
+				User owner = this.vacation.getOwner();
 				if (owner.equals(iwc.getCurrentUser())) {
 					add(ownerView(iwc));
 				}
@@ -98,14 +98,14 @@ public class VacationApprover extends VacationBlock {
 	}
 
 	private void parse(IWContext iwc) {
-		action = iwc.getParameter(PARAMETER_ACTION);
-		if (action == null) {
-			action = "";
+		this.action = iwc.getParameter(PARAMETER_ACTION);
+		if (this.action == null) {
+			this.action = "";
 		}
 
-		vacation = getVacation(iwc);
-		if (vacation != null) {
-			vacationType = vacation.getVacationType();
+		this.vacation = getVacation(iwc);
+		if (this.vacation != null) {
+			this.vacationType = this.vacation.getVacationType();
 		}
 		else {
 			throw new IBORuntimeException("No vacation request found...");
@@ -137,7 +137,7 @@ public class VacationApprover extends VacationBlock {
 	private void reject(IWContext iwc) {
 		String comment = iwc.getParameter(PARAMETER_COMMENT);
 		try {
-			getBusiness(iwc).rejectApplication(vacation, iwc.getCurrentUser(), comment);
+			getBusiness(iwc).rejectApplication(this.vacation, iwc.getCurrentUser(), comment);
 		}
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
@@ -146,7 +146,7 @@ public class VacationApprover extends VacationBlock {
 	
 	private void close(IWContext iwc) {
 		try {
-			getBusiness(iwc).closeApplication(vacation, iwc.getCurrentUser());
+			getBusiness(iwc).closeApplication(this.vacation, iwc.getCurrentUser());
 		}
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
@@ -157,7 +157,7 @@ public class VacationApprover extends VacationBlock {
 		String comment = iwc.getParameter(PARAMETER_COMMENT);
 		boolean salaryCompensation = iwc.isParameterSet(PARAMETER_WITH_SALARY_COMPENSATION) ? new Boolean(iwc.getParameter(PARAMETER_WITH_SALARY_COMPENSATION)).booleanValue() : false;
 		try {
-			getBusiness(iwc).approveApplication(vacation, iwc.getCurrentUser(), comment, salaryCompensation);
+			getBusiness(iwc).approveApplication(this.vacation, iwc.getCurrentUser(), comment, salaryCompensation);
 		}
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
@@ -170,7 +170,7 @@ public class VacationApprover extends VacationBlock {
 			boolean salaryCompensation = iwc.isParameterSet(PARAMETER_WITH_SALARY_COMPENSATION) ? new Boolean(iwc.getParameter(PARAMETER_WITH_SALARY_COMPENSATION)).booleanValue() : false;
 			Group group = getUserBusiness(iwc).getGroupBusiness().getGroupByGroupID(Integer.parseInt(iwc.getParameter(PARAMETER_FORWARD_GROUP)));
 			User handler = getUserBusiness(iwc).getUser(new Integer(iwc.getParameter(PARAMETER_HANDLER)));
-			getBusiness(iwc).forwardApplication(vacation, iwc.getCurrentUser(), group, handler, comment, salaryCompensation);
+			getBusiness(iwc).forwardApplication(this.vacation, iwc.getCurrentUser(), group, handler, comment, salaryCompensation);
 		}
 		catch (RemoteException re) {
 			throw new IBORuntimeException(re);
@@ -194,8 +194,8 @@ public class VacationApprover extends VacationBlock {
 	private Table forwardView(IWContext iwc) throws RemoteException {
 		Group parentGroup = (Group) getBusiness(iwc).getParentGroup(iwc.getCurrentUser()).getParentNode();
 		Table table = new Table();
-		table.setWidth(iWidth);
-		table.setCellpadding(iCellpadding);
+		table.setWidth(this.iWidth);
+		table.setCellpadding(this.iCellpadding);
 		table.setCellspacing(0);
 		int row = 1;
 		
@@ -215,7 +215,7 @@ public class VacationApprover extends VacationBlock {
 			table.add(new BackButton(getResourceBundle().getLocalizedString("vacation.request.back", "Back")), 1, row);
 		}
 		
-		table.setWidth(1, iHeaderColumnWidth);
+		table.setWidth(1, this.iHeaderColumnWidth);
 		table.setCellpaddingLeft(1, 0);
 		
 		return table;
@@ -225,13 +225,13 @@ public class VacationApprover extends VacationBlock {
 		Form form = new Form();
 		form.maintainParameter(PARAMETER_PRIMARY_KEY_VAC);
 		
-		Table logs = getVacationActionOverview(iwc, vacation);
+		Table logs = getVacationActionOverview(iwc, this.vacation);
 		if (logs != null) {
 			form.add(logs);
 			form.add(new Break());
 		}
 		
-		form.add(showVacationRequest(iwc, vacation));
+		form.add(showVacationRequest(iwc, this.vacation));
 		form.add(new Break());
 		form.add(getCloseButton());
 		return form;
@@ -241,7 +241,7 @@ public class VacationApprover extends VacationBlock {
 		Form form = new Form();
 		form.maintainParameter(PARAMETER_PRIMARY_KEY_VAC);
 		
-		Table logs = getVacationActionOverview(iwc, vacation);
+		Table logs = getVacationActionOverview(iwc, this.vacation);
 		if (logs != null) {
 			form.add(logs);
 			form.add(new Break());
@@ -260,13 +260,13 @@ public class VacationApprover extends VacationBlock {
 		form.add(getPersonInfo(iwc, user)); 
 		form.add(new Break());
 		//...stops here
-		form.add(showVacationRequest(iwc, vacation));
+		form.add(showVacationRequest(iwc, this.vacation));
 		form.add(new Break());
 		form.add(handleRequest(iwc));
 		form.add(new Break(2));
 		form.add(getDeniedButton());
 		form.add(getApprovedButton());
-		if (vacationType.getAllowsForwarding()) {
+		if (this.vacationType.getAllowsForwarding()) {
 			form.add(getForwardViewButton());
 		}
 		return form;
@@ -309,8 +309,8 @@ public class VacationApprover extends VacationBlock {
 
 	private Table handleRequest(IWContext iwc) {
 		Table table = new Table();
-		table.setWidth(iWidth);
-		table.setCellpadding(iCellpadding);
+		table.setWidth(this.iWidth);
+		table.setCellpadding(this.iCellpadding);
 		table.setCellspacing(0);
 		int row = 1;
 		
@@ -318,7 +318,7 @@ public class VacationApprover extends VacationBlock {
 		if (hasSalaryRole) {
 			RadioButton withCompensation = (RadioButton) getRadioButton(new RadioButton(PARAMETER_WITH_SALARY_COMPENSATION, Boolean.TRUE.toString()));
 			RadioButton withoutCompensation = (RadioButton) getRadioButton(new RadioButton(PARAMETER_WITH_SALARY_COMPENSATION, Boolean.FALSE.toString()));
-			if (vacation.getSalaryCompensation()) {
+			if (this.vacation.getSalaryCompensation()) {
 				withCompensation.setSelected(true);
 			}
 			else {
@@ -347,7 +347,7 @@ public class VacationApprover extends VacationBlock {
 		table.add(getHeader(getResourceBundle().getLocalizedString("vacation.request.message_to_worker", "Message to worker")), 1, row);
 		table.add(area, 2, row++);
 		
-		table.setWidth(1, iHeaderColumnWidth);
+		table.setWidth(1, this.iHeaderColumnWidth);
 		table.setCellpaddingLeft(1, 0);
 		
 		return table;

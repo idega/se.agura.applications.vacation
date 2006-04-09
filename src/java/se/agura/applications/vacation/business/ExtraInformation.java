@@ -1,5 +1,5 @@
 /*
- * $Id: ExtraInformation.java,v 1.1 2004/11/25 14:22:35 anna Exp $
+ * $Id: ExtraInformation.java,v 1.2 2006/04/09 12:00:49 laddi Exp $
  * Created on 24.11.2004
  *
  * Copyright (C) 2004 Idega Software hf. All Rights Reserved.
@@ -14,7 +14,7 @@ package se.agura.applications.vacation.business;
  * Last modified: 24.11.2004 09:17:04 by: anna
  * 
  * @author <a href="mailto:anna@idega.com">anna</a>
- * @version $Revision: 1.1 $
+ * @version $Revision: 1.2 $
  */
 public class ExtraInformation {
 	
@@ -26,7 +26,7 @@ public class ExtraInformation {
 	 * @return Returns the key.
 	 */
 	public String getKey() {
-		return key;
+		return this.key;
 	}
 	/**
 	 * @param key The key to set.
@@ -38,7 +38,7 @@ public class ExtraInformation {
 	 * @return Returns the type.
 	 */
 	public String getType() {
-		return type;
+		return this.type;
 	}
 	/**
 	 * @param type The type to set.
@@ -50,7 +50,7 @@ public class ExtraInformation {
 	 * @return Returns the value.
 	 */
 	public String getValue() {
-		return value;
+		return this.value;
 	}
 	/**
 	 * @param value The value to set.

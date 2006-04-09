@@ -147,7 +147,7 @@ public class VacationApplication extends VacationBlock {
 			Form form = new Form();
 			form.add(getHeader(getResourceBundle().getLocalizedString("vacation_request.validation_error", "Validation error")));
 			form.add(new Break());
-			form.add(getText(validateMessage));
+			form.add(getText(this.validateMessage));
 			form.add(new Break(2));
 			form.add(getInput(new BackButton(getResourceBundle().getLocalizedString("vacation_request.back", "Back"))));
 			
@@ -218,11 +218,11 @@ public class VacationApplication extends VacationBlock {
 		int maxDays = getVacationType(iwc) != null ? getVacationType(iwc).getMaxDays() : -1;
 		
 		if (fromDate.isLaterThan(toDate)) {
-			validateMessage = getResourceBundle().getLocalizedString("vacation_request.from_date_later_than_to_date", "The from date is later than the to date.");
+			this.validateMessage = getResourceBundle().getLocalizedString("vacation_request.from_date_later_than_to_date", "The from date is later than the to date.");
 			return false;
 		}
 		if (maxDays != -1 && IWTimestamp.getDaysBetween(fromDate, toDate) > maxDays) {
-			validateMessage = getResourceBundle().getLocalizedString("vacation_request.max_days_exceeded", "Maximum number of days exceeded.");
+			this.validateMessage = getResourceBundle().getLocalizedString("vacation_request.max_days_exceeded", "Maximum number of days exceeded.");
 			return false;
 		}
 		return true;
@@ -254,10 +254,10 @@ public class VacationApplication extends VacationBlock {
 		hours.setAsNotEmpty(getResourceBundle().getLocalizedString("vacation.hours_not_empty", "This field may not be empty"));
 		
 		Table timeTable = new Table(2, 6);
-		timeTable.setCellpadding(iCellpadding);
+		timeTable.setCellpadding(this.iCellpadding);
 		timeTable.setCellspacing(0);
 		timeTable.setBorder(0);
-		timeTable.setWidth(1, iHeaderColumnWidth);
+		timeTable.setWidth(1, this.iHeaderColumnWidth);
 		timeTable.setCellpaddingLeft(1, 1, 0);
 		timeTable.setCellpaddingLeft(1, 2, 0);
 		timeTable.setCellpaddingLeft(1, 4, 0);
@@ -307,8 +307,8 @@ public class VacationApplication extends VacationBlock {
 		TextArea text = (TextArea) getInput(new TextArea(PARAMETER_VACATION_EXTRA_TEXT));
 		text.setWidth(Table.HUNDRED_PERCENT);
 		text.setRows(4);
-		reasonTable.setWidth(iWidth);
-		reasonTable.setCellpadding(iCellpadding);
+		reasonTable.setWidth(this.iWidth);
+		reasonTable.setCellpadding(this.iCellpadding);
 		reasonTable.setCellspacing(0);
 		reasonTable.setBorder(0);
 		int row = 1;
@@ -368,7 +368,7 @@ public class VacationApplication extends VacationBlock {
 		reasonTable.setVerticalAlignment(1, row, Table.VERTICAL_ALIGN_TOP);
 		reasonTable.add(getHeader(getResourceBundle().getLocalizedString("vacation.type_text", "Comment")), 1, row);
 		reasonTable.add(text, 2, row++);
-		reasonTable.setWidth(1, iHeaderColumnWidth);
+		reasonTable.setWidth(1, this.iHeaderColumnWidth);
 		
 		for (int a = 1; a <= reasonTable.getRows(); a++) {
 			reasonTable.setCellpaddingLeft(1, a, 0);
@@ -387,7 +387,7 @@ public class VacationApplication extends VacationBlock {
 		Table workingDaysTable = new Table();
 		workingDaysTable.setBorder(0);
 		workingDaysTable.setCellspacing(0);
-		workingDaysTable.setCellpadding(iCellpadding);
+		workingDaysTable.setCellpadding(this.iCellpadding);
 		int row = 1;
 		if (maxDays == -1) {
 			maxDays = 35;
@@ -437,7 +437,7 @@ public class VacationApplication extends VacationBlock {
 		
 		workingDaysTable.mergeCells(1, 1, 1, workingDaysTable.getRows());
 		workingDaysTable.setVerticalAlignment(1, 1, Table.VERTICAL_ALIGN_TOP);
-		workingDaysTable.setWidth(1, iHeaderColumnWidth);
+		workingDaysTable.setWidth(1, this.iHeaderColumnWidth);
 		workingDaysTable.setCellpaddingLeft(1, 1, 0);
 		
 		return workingDaysTable;
@@ -457,7 +457,7 @@ public class VacationApplication extends VacationBlock {
 	private Table showVacationRequest(IWContext iwc) {
 		Table table = new Table();
 		table.setColumns(9);
-		table.setCellpadding(iCellpadding);
+		table.setCellpadding(this.iCellpadding);
 		table.setCellspacing(0);
 		table.setBorder(0);
 		
@@ -599,7 +599,7 @@ public class VacationApplication extends VacationBlock {
 		table.add(getText(today.getLocaleDate(iwc.getCurrentLocale())), 2, row++);
 		
 		table.setCellpaddingLeft(1, 0);
-		table.setWidth(1, iHeaderColumnWidth);
+		table.setWidth(1, this.iHeaderColumnWidth);
 		
 		return table;
 	}
